@@ -8,15 +8,9 @@
   <packaging>aar</packaging>
   <dependencies>
     <dependency>
-      <groupId>androidx.appcompat</groupId>
-      <artifactId>appcompat</artifactId>
-      <version>1.0.2</version>
-      <scope>compile</scope>
-    </dependency>
-    <dependency>
       <groupId>com.google.android.gms</groupId>
       <artifactId>play-services-ads</artifactId>
-      <version>18.1.0</version>
+      <version>18.1.1</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
@@ -46,7 +40,7 @@
     <dependency>
       <groupId>com.ironsource.sdk</groupId>
       <artifactId>mediationsdk</artifactId>
-      <version>6.8.3</version>
+      <version>6.9.0</version>
       <scope>compile</scope>
       <exclusions>
         <exclusion>
@@ -144,7 +138,7 @@
     <dependency>
       <groupId>com.facebook.android</groupId>
       <artifactId>facebook-android-sdk</artifactId>
-      <version>4.42.0</version>
+      <version>5.1.0</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
