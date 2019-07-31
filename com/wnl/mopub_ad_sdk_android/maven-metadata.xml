@@ -3,11 +3,12 @@
   <groupId>com.wnl</groupId>
   <artifactId>mopub_ad_sdk_android</artifactId>
   <versioning>
-    <release>1.0.3</release>
+    <release>1.0.4</release>
     <versions>
       <version>1.0.2</version>
       <version>1.0.3</version>
+      <version>1.0.4</version>
     </versions>
-    <lastUpdated>20190731050138</lastUpdated>
+    <lastUpdated>20190731052507</lastUpdated>
   </versioning>
 </metadata>
