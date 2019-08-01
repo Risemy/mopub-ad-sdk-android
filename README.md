@@ -6,27 +6,36 @@ android 4.1 或更高版本
 Android Studio 3.4
 
 ## 集成
- 1. 在 build.gradle 的 allprojects > repositories里面添加
- ```java
+1. 在项目级别的 build.gradle 的 allprojects > repositories里面添加
+```java
  maven { url "https://s3.amazonaws.com/moat-sdk-builds" }
  maven { url 'https://maven.google.com' }
  maven {url "https://dl.bintray.com/ironsource-mobile/android-sdk"}
  maven { url "https://raw.githubusercontent.com/Risemy/mopub-ad-sdk-android/master" }
- ```
- 2. 在 build.gradle 的  dependencies 里面添加：
-```java
- implementation 'com.wnl:mopub_ad_sdk_android:1.0.4'
 ```
- 3. build项目
+2. 在APP级别的 build.gradle 的  dependencies 里面添加：
+  ```java
+    implementation 'com.wnl:mopub_ad_sdk_android:1.0.2'
+  ```
+3. 在APP级别的 build.gradle 的  android 里面添加：
+
+ ```java
+  compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+ ```
 
 ## 缓存策略
 * 初始化成功SDK后，将会自动缓存一个插屏，全部奖励视频广告
-* 默认每隔2分钟缓存一次之前未加载成功或被消耗的插屏、视频广告
+* 默认每隔2分钟会检查是否有缓存广告，如果没有就会主动加载一次，缓存下来，以备使用
 * 当已经加载过的广告被消耗且已关闭，就会重新加载该广告
 
 ## 使用案例
 
 #### 一.初始化SDK
+
+在MainActivity的onCreate()方法里面初始化
 ``` java
 		//初始化配置
         AdConfig.Builder builder = new AdConfig.Builder()
@@ -38,7 +47,7 @@ Android Studio 3.4
                 .setInterstitialAdUnits(interstitialList)//插屏广告单元 List<String>数组
                 .setRewardedVideoAdUnits(videoList);//视频广告单元 List<String>数组
 				
-		AdManager.initAd(this, builder.build(), new SdkInitListener() {
+		AdManager.initAd(MainActivity.this, builder.build(), new SdkInitListener() {
             @Override
             public void onInitializationFinished() {
                 //SDK初始化完成回调监听
@@ -128,10 +137,11 @@ Android Studio 3.4
 ***注意：必填项，如不填写，将无法初始化FaceBook 数据统计。***
 
 在项目里面 AndroidManifest 的 Application 里面配置 facebook_app_id 是facebook开发者后台申请的 app_id
-https://developers.facebook.com/docs/android/getting-started/
+
 ```java
-   <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="你的facebook_app_id"/>
+   <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
 ```
+官方文档 https://developers.facebook.com/docs/android/getting-started/
 
 #### 三.协议回调一览
 **3.1 banner广告相关回调**
