@@ -15,7 +15,7 @@ Android Studio 3.4
 ```
 2. 在APP级别的 build.gradle 的  dependencies 里面添加：
   ```java
-    implementation 'com.wnl:mopub_ad_sdk_android:1.0.2'
+    implementation 'com.wnl:mopub_ad_sdk_android:1.0.5'
   ```
 3. 在APP级别的 build.gradle 的  android 里面添加：
 
