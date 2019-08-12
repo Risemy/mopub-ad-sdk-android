@@ -15,7 +15,7 @@ Android Studio 3.4
 ```
 2. 在APP级别的 build.gradle 的  dependencies 里面添加：
   ```java
-    implementation 'com.wnl:mopub_ad_sdk_android:1.0.5'
+    implementation 'com.wnl:mopub_ad_sdk_android:1.1.0'
   ```
 3. 在APP级别的 build.gradle 的  android 里面添加：
 
@@ -24,6 +24,13 @@ Android Studio 3.4
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+ ```
+ 4. 在App级别的 AndroidMainfest.xml里面配置
+ 
+ ```java
+  <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="你的Google广告Id，可向发布商索取" />
  ```
 
 ## 缓存策略
@@ -35,12 +42,16 @@ Android Studio 3.4
 
 #### 一.初始化SDK
 
-在MainActivity的onCreate()方法里面初始化
+在MainActivity类里面初始化
 ``` java
+
+	@Override
+	protected void onCreate(@Nullable Bundle savedInstanceState) {
+	 super.onCreate(savedInstanceState);
 		//初始化配置
-        AdConfig.Builder builder = new AdConfig.Builder()
+         AdConfig.Builder builder = new AdConfig.Builder()
                 .setIsAutoLoadAd(true) //默认为true 自动缓存视频广告
-                .setRepeatTime(120000)//配置自动加载广告，每两分钟自动检查是否有缓存视频广告，如果有视频广告缓存则不做任何操作，没有视频广告缓存则请求
+                .setRepeatTime(120000)//配置自动加载广告，每两分钟自动检查是否有缓存视频广告，如果有视频广告缓存则不做任何操作，没有视频广告缓存则			请求
                 .setOverTime(30000)//主动加载广告  设置请求超时时间  默认30秒
                 .setAppFlyerKey("")//默认值为发行商所配置的key
                 .setBannerAdUnits(bannerList)//banner广告单元 List<String>数组
@@ -53,6 +64,55 @@ Android Studio 3.4
                 //SDK初始化完成回调监听
             }
         });
+	  AdManager.getInstance().onMopubCreate(this);
+	}
+	
+	@Override
+    	public void onPause() {
+         super.onPause();
+         AdManager.getInstance().onMopubPause(this);
+    	}
+
+    	@Override
+    	public void onStop() {
+         super.onStop();
+         AdManager.getInstance().onMopubStop(this);
+    	}
+
+    	@Override
+    	public void onResume() {
+         super.onResume();
+         AdManager.getInstance().onMopubResume(this);
+    	}
+
+    // Additional lifecycle events
+
+    // The following methods are required for Chartboost rewarded video mediation
+    	@Override
+    	public void onStart() {
+         super.onStart();
+         AdManager.getInstance().onMopubStart(this);
+    	}
+
+    	@Override
+    	public void onRestart() {
+         super.onRestart();
+         AdManager.getInstance().onMopubRestart(this);
+    	}
+
+    	@Override
+    	public void onDestroy() {
+         super.onDestroy();
+         AdManager.getInstance().onMopubDestroy(this);
+    	}
+
+    	@Override
+    	public void onBackPressed() {
+         super.onBackPressed();
+         AdManager.getInstance().onMopubBackPressed(this);
+    	}
+	  
+	
 
 ```
 
